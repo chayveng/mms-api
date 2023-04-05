@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "e1TWst/6EaUpWA/L/FeE1el9SZnRjcBLMIrXldh4gUo=",
+  "Source": "mms-api",
+  "BasePath": "_content/mms-api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
