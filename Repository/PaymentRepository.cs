@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using mms_api.Domain.Business;
 using mms_api.Domain.Payment;
 using mms_api.Infrastucture;
 
@@ -28,6 +29,12 @@ public class PaymentRepository : IPaymentRepository
         return _context.Payments.ToList();
     }
 
+    public int Counter()
+    {
+        var count = _context.Payments.ToList();
+        return count.Count();
+    }
+
     public async Task<Payment> GetById(Guid id)
     {
         var result = await _context.Payments.FirstOrDefaultAsync(e => e.Id == id);
@@ -48,7 +55,7 @@ public class PaymentRepository : IPaymentRepository
 
     public async Task<Payment> GetByPaymentName(string paymentName)
     {
-        var result = await _context.Payments.FirstOrDefaultAsync(e => e.PaymentName == paymentName);
+        var result = await _context.Payments.FirstOrDefaultAsync(e => e.Name == paymentName);
         return result;
     }
 
@@ -68,5 +75,15 @@ public class PaymentRepository : IPaymentRepository
     {
         var entity = _context.Payments.Remove(payment);
         return entity.Entity;
+    }
+
+    public async Task<IEnumerable<Payment>> Search(string name)
+    {
+        IQueryable<Payment> query = _context.Payments;
+        if (!string.IsNullOrEmpty(name))
+        {
+            query = query.Where(e => e.Name.Contains(name));
+        }
+        return await query.ToListAsync();
     }
 }

@@ -10,11 +10,13 @@ public class BankController : Controller
 {
     private readonly ILogger<BankController> _logger;
     private readonly BankManager _manager;
+    private readonly IBankRepository _repository;
 
-    public BankController(ILogger<BankController> logger, BankManager manager)
+    public BankController(ILogger<BankController> logger, BankManager manager, IBankRepository repository)
     {
         _logger = logger;
         _manager = manager;
+        _repository = repository;
     }
 
     [HttpGet("all")]
@@ -30,6 +32,34 @@ public class BankController : Controller
             _logger.LogError("Get all is error: {EMessage}", e.Message);
             return BadRequest();
         }
+    }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult> GetById(Guid id)
+    {
+        try
+        {
+            var data = await _manager.GetById(id);
+            if (data != null) { return Ok(data); }
+            return NotFound();
+        }
+        catch (Exception e)
+        {
+            _logger.LogError("Get all is error: {EMessage}", e.Message);
+            return BadRequest();
+        }
+    }
+
+    [HttpGet("search/{name}")]
+    public async Task<ActionResult> Search(string name)
+    {
+        //var result = await _repository.GetByName(name);
+        var result = await _repository.Search(name);
+        if (result != null)
+        {
+            return Ok(result);
+        }
+        return NotFound();
     }
 
     [HttpPost("create")]

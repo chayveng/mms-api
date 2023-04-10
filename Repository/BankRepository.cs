@@ -1,10 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using mms_api.Domain.Bank;
+using mms_api.Domain.Business;
 using mms_api.Infrastucture;
 
 namespace mms_api.Repository;
 
-public class BankRepository: IBankRepository
+public class BankRepository : IBankRepository
 {
     private readonly DatabaseContext _context;
 
@@ -36,7 +37,7 @@ public class BankRepository: IBankRepository
 
     public async Task<Bank> GetByBankName(string bankName)
     {
-        var result = await _context.Banks.FirstOrDefaultAsync(e => e.BankName == bankName);
+        var result = await _context.Banks.FirstOrDefaultAsync(e => e.Name == bankName);
         return result;
     }
 
@@ -63,4 +64,15 @@ public class BankRepository: IBankRepository
         var entity = _context.Banks.Remove(bank);
         return entity.Entity;
     }
+
+    public async Task<IEnumerable<Bank>> Search(string name)
+    {
+        IQueryable<Bank> query = _context.Banks;
+        if (!string.IsNullOrEmpty(name))
+        {
+            query = query.Where(e => e.Name.Contains(name));
+        }
+        return await query.ToListAsync();
+    }
+
 }

@@ -6,6 +6,7 @@ public interface IPaymentRepository
     IQueryable<Payment> GetQuery();
     // int Running(string imageId);
     IEnumerable<Payment> GetAll();
+    int Counter();
     Task<Payment> GetById(Guid id);
     Task<Payment> GetByCode(string code);
     Task<Payment> GetByInitials(string initials);
@@ -13,4 +14,5 @@ public interface IPaymentRepository
     Payment Create(Payment payment);
     Payment Update(Payment payment);
     Payment Delete(Payment payment);
+    Task<IEnumerable<Payment>> Search(string name);
 }

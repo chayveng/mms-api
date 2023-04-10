@@ -12,7 +12,7 @@ public class PaymentEntityConfig : IEntityTypeConfiguration<Payment>
         builder.Property(e => e.Id).HasColumnName("ID");
         builder.Property(e => e.Code).HasColumnName("Code");
         builder.Property(e => e.Initials).HasColumnName("Initials");
-        builder.Property(e => e.PaymentName).HasColumnName("Payment_Name");
+        builder.Property(e => e.Name).HasColumnName("Name");
         builder.Property(e => e.ImageId).HasColumnName("Image_Id");
         builder.Property(e => e.Status).HasColumnName("Status");
         builder.Property(e => e.CREATED_DATETIME).HasColumnName("CREATED_DATETIME");

@@ -24,9 +24,9 @@ public class BusinessManager
 
     public Business Create(Business business)
     {
-       business.Id = new Guid();
-       business.CREATE_DATETIME =  DateTime.UtcNow;
-       business.UPDATE_DATETIME =  DateTime.UtcNow;
+        business.Id = new Guid();
+        business.CREATE_DATETIME = DateTime.UtcNow;
+        business.UPDATE_DATETIME = DateTime.UtcNow;
         var response = _repository.Create(business);
         _repository.SaveChanges();
         return response;
@@ -35,10 +35,10 @@ public class BusinessManager
     public Business Update(Business newBusiness, Business oldBusiness)
     {
         // oldBusiness.BusinessId = newBusiness.BusinessId;
-        oldBusiness.TypeName = newBusiness.TypeName;
+        oldBusiness.Name = newBusiness.Name;
         oldBusiness.Status = newBusiness.Status;
-        oldBusiness.UPDATE_DATETIME =  DateTime.UtcNow;
-        
+        oldBusiness.UPDATE_DATETIME = DateTime.UtcNow;
+
         var response = _repository.Update(oldBusiness);
         _repository.SaveChanges();
         return response;

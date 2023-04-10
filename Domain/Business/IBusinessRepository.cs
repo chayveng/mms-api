@@ -13,10 +13,10 @@ namespace mms_api.Domain.Business
         IEnumerable<Business> GetAll();
         Task<Business?> GetById(Guid id);
         Task<Business?> GetByBusinessId(string businessId);
-        Task<Business?> GetByTypeName(string typeName);
+        Task<Business?> GetByName(string typeName);
         Business Create(Business business);
         Business Update(Business business);
         Business Delete(Business business);
-
+        Task<IEnumerable<Business>> Search(string name);
     }
 }

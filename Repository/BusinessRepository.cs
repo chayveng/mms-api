@@ -1,3 +1,4 @@
+using System;
 using Microsoft.EntityFrameworkCore;
 using mms_api.Domain.Business;
 using mms_api.Infrastucture;
@@ -50,9 +51,9 @@ namespace mms_api.Repository
             return result;
         }
 
-        public async Task<Business?> GetByTypeName(string typeName)
+        public async Task<Business?> GetByName(string name)
         {
-            var result = await _context.Businesses.FirstOrDefaultAsync(t => t.TypeName == typeName);
+            var result = await _context.Businesses.FirstOrDefaultAsync(t => t.Name == name);
             return result;
         }
 
@@ -73,6 +74,15 @@ namespace mms_api.Repository
             var entity = _context.Businesses.Remove(business);
             return entity.Entity;
         }
-        
+
+        public async Task<IEnumerable<Business>> Search(string name)
+        {
+            IQueryable<Business> query = _context.Businesses;
+            if (!string.IsNullOrEmpty(name))
+            {
+                query = query.Where(e => e.Name.Contains(name));
+            }
+            return await query.ToListAsync();
+        }
     }
 }

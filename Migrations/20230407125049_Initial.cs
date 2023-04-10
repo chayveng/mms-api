@@ -16,9 +16,10 @@ namespace mms_api.Migrations
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "uuid", nullable: false),
-                    Payment_Name = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
                     Initials = table.Column<string>(type: "text", nullable: false),
                     Status = table.Column<bool>(type: "boolean", nullable: false),
+                    Image_Id = table.Column<string>(type: "text", nullable: false),
                     CREATED_DATETIME = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UPDATED_DATETIME = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -33,7 +34,7 @@ namespace mms_api.Migrations
                 {
                     ID = table.Column<Guid>(type: "uuid", nullable: false),
                     BUSINESS_ID = table.Column<string>(type: "text", nullable: false),
-                    Type_Name = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
                     Status = table.Column<bool>(type: "boolean", nullable: false),
                     CREATED_DATETIME = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UPDATED_DATETIME = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
@@ -67,7 +68,7 @@ namespace mms_api.Migrations
                     ID = table.Column<Guid>(type: "uuid", nullable: false),
                     Code = table.Column<string>(type: "text", nullable: false),
                     Initials = table.Column<string>(type: "text", nullable: false),
-                    Payment_Name = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
                     Image_Id = table.Column<string>(type: "text", nullable: false),
                     Status = table.Column<bool>(type: "boolean", nullable: false),
                     CREATED_DATETIME = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),

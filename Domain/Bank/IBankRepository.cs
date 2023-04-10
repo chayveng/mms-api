@@ -11,4 +11,5 @@ public interface IBankRepository
     Bank Create(Bank bank);
     Bank Update(Bank bank);
     Bank Delete(Bank bank);
+    Task<IEnumerable<Bank>> Search(string name);
 }

@@ -10,13 +10,14 @@ public class PaymentController : Controller
 {
     private readonly ILogger<PaymentController> _logger;
     private readonly PaymentManager _manager;
+    private readonly IPaymentRepository _repository;
 
-    public PaymentController(ILogger<PaymentController> logger, PaymentManager manager)
+    public PaymentController(ILogger<PaymentController> logger, PaymentManager manager, IPaymentRepository repository)
     {
         _logger = logger;
         _manager = manager;
+        _repository = repository;
     }
-
     [HttpGet("all")]
     public ActionResult GetAll()
     {
@@ -29,9 +30,38 @@ public class PaymentController : Controller
         {
             _logger.LogError("Get all is error: {EMessage}", e.Message);
             return BadRequest();
-        } 
+        }
     }
-    
+
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult> GetById(Guid id)
+    {
+        try
+        {
+            var data = await _manager.GetById(id);
+            if (data != null) { return Ok(data); }
+            return NotFound();
+        }
+        catch (Exception e)
+        {
+            _logger.LogError("Get By id is error: {EMessage}", e.Message);
+            return BadRequest();
+        }
+    }
+
+    [HttpGet("search/{name}")]
+    public async Task<ActionResult> Search(string name)
+    {
+        //var result = await _repository.GetByName(name);
+        var result = await _repository.Search(name);
+        if (result != null)
+        {
+            return Ok(result);
+        }
+        return NotFound();
+    }
+
     [HttpPost("create")]
     public ActionResult Create([FromBody] Payment payment)
     {
@@ -58,7 +88,7 @@ public class PaymentController : Controller
                 return NotFound();
             }
 
-            var response =  _manager.Update(payment, result);
+            var response = _manager.Update(payment, result);
             return Ok("Updated");
         }
         catch (Exception e)
@@ -78,7 +108,7 @@ public class PaymentController : Controller
             {
                 return NotFound();
             }
-            
+
             var response = _manager.Delete(result);
             return Ok("Delete");
         }

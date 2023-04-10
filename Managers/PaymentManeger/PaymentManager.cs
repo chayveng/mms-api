@@ -11,7 +11,7 @@ public class PaymentManager
     {
         _repository = repository;
     }
-    
+
     public IEnumerable<Payment> GetAll()
     {
         return _repository.GetAll();
@@ -24,6 +24,8 @@ public class PaymentManager
 
     public Payment Create(Payment payment)
     {
+        var count = _repository.Counter();
+        payment.Code = $"{(count + 1).ToString().PadLeft(3, '0')}";
         payment.CREATED_DATETIME = DateTime.UtcNow;
         payment.UPDATED_DATETIME = DateTime.UtcNow;
         var response = _repository.Create(payment);
@@ -34,10 +36,11 @@ public class PaymentManager
     public Payment Update(Payment newPayment, Payment oldPayment)
     {
         oldPayment.Initials = newPayment.Initials;
-        oldPayment.PaymentName = newPayment.PaymentName;
+        oldPayment.Name = newPayment.Name;
+        oldPayment.ImageId = newPayment.ImageId;
         oldPayment.Status = newPayment.Status;
-        oldPayment.UPDATED_DATETIME =  DateTime.UtcNow;
-        
+        oldPayment.UPDATED_DATETIME = DateTime.UtcNow;
+
         var response = _repository.Update(oldPayment);
         _repository.SaveChanges();
         return response;
@@ -48,6 +51,6 @@ public class PaymentManager
         _repository.SaveChanges();
         return response;
     }
-    
-    
+
+
 }

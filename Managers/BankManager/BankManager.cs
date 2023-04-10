@@ -10,7 +10,7 @@ public class BankManager
     {
         _repository = repository;
     }
-    
+
     public IEnumerable<Bank> GetAll()
     {
         return _repository.GetAll();
@@ -34,10 +34,10 @@ public class BankManager
     public Bank Update(Bank newBank, Bank oldBank)
     {
         oldBank.Initials = newBank.Initials;
-        oldBank.BankName = newBank.BankName;
+        oldBank.Name = newBank.Name;
         oldBank.Status = newBank.Status;
-        oldBank.UPDATE_DATETIME =  DateTime.UtcNow;
-        
+        oldBank.UPDATE_DATETIME = DateTime.UtcNow;
+
         var response = _repository.Update(oldBank);
         _repository.SaveChanges();
         return response;

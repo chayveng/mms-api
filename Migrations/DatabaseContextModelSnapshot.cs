@@ -29,23 +29,27 @@ namespace mms_api.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("ID");
 
-                    b.Property<string>("BankName")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("Payment_Name");
-
                     b.Property<DateTime>("CREATE_DATETIME")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("CREATED_DATETIME");
+
+                    b.Property<string>("ImageId")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Image_Id");
 
                     b.Property<string>("Initials")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("Initials");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Name");
+
                     b.Property<bool>("Status")
-                        .HasColumnType("boolean")
-                        .HasColumnName("Status");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime>("UPDATE_DATETIME")
                         .HasColumnType("timestamp with time zone")
@@ -72,14 +76,14 @@ namespace mms_api.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("CREATED_DATETIME");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Name");
+
                     b.Property<bool>("Status")
                         .HasColumnType("boolean")
                         .HasColumnName("Status");
-
-                    b.Property<string>("TypeName")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("Type_Name");
 
                     b.Property<DateTime>("UPDATE_DATETIME")
                         .HasColumnType("timestamp with time zone")
@@ -156,10 +160,10 @@ namespace mms_api.Migrations
                         .HasColumnType("text")
                         .HasColumnName("Initials");
 
-                    b.Property<string>("PaymentName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text")
-                        .HasColumnName("Payment_Name");
+                        .HasColumnName("Name");
 
                     b.Property<bool>("Status")
                         .HasColumnType("boolean")
